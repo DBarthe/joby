@@ -1,0 +1,5 @@
+import os
+
+CASSANDRA_ENDPOINT = ",".join(os.environ.get('CASSANDRA_ENDPOINTS'))
+MAIN_KEYSPACE = "jobs"
+REPLICATION_FACTOR = 1
