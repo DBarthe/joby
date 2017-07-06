@@ -1,4 +1,6 @@
+import datetime
 import requests
+import time
 from cassandra.cqlengine import ValidationError
 from cassandra.cqlengine.query import BatchQuery
 
@@ -32,7 +34,8 @@ def save_page(page, page_num):
     with BatchQuery() as b:
         for job_item in page['resultItemList']:
             try:
-                job = Job.create(date=job_item['date'],
+                date = time.mktime(datetime.datetime.strptime(job_item['date'], "%Y-%m-%d").timetuple())
+                job = Job.create(date=date,
                                  location_text=job_item['location'],
                                  title=job_item['jobTitle'],
                                  company=job_item['company'],

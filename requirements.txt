@@ -1,6 +1,9 @@
 cassandra-driver==3.10
 certifi==2017.4.17
 chardet==3.0.4
+docutils==0.13.1
+geohash2==1.0
+geopy==1.11.0
 idna==2.5
 requests==2.18.1
 six==1.10.0

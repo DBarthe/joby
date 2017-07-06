@@ -14,3 +14,9 @@ Load offers:
 $ CASSANDRA_ENDPOINTS="X.X.X.X,Y.Y.Y.Y" python3 -m joby.load
 ```
 
+Update location using a geocoder web service:
+```bash
+$ CASSANDRA_ENDPOINTS="X.X.X.X,Y.Y.Y.Y" python3 -m joby.geocode
+```
+
+

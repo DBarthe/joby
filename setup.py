@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='joby',
-    version='0.2.2',
+    version='0.2.3',
     packages=['joby'],
     url='',
     license='MIT',
@@ -11,6 +11,8 @@ setup(
     description='',
     install_requires=[
         'cassandra-driver',
-        'requests'
+        'requests',
+        'geopy',
+        'geohash2'
     ]
 )

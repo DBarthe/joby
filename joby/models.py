@@ -10,12 +10,12 @@ from joby.logs import log
 class Job(Model):
     log.info("Define Job model")
     location_text = columns.Text(partition_key=True, min_length=1)
-    date = columns.Date(primary_key=True, clustering_order='DESC')
+    date = columns.DateTime(primary_key=True, clustering_order='DESC')
     company = columns.Text(primary_key=True, min_length=1)
     title = columns.Text(primary_key=True, min_length=1)
     source = columns.Text(primary_key=True, min_length=1)
+    location = columns.Text(required=False, static=True)
     url = columns.Text()
-    location = columns.Text(required=False)
     description = columns.Text(required=False)
     keywords = columns.List(value_type=columns.Text, required=False)
 
