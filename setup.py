@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='joby',
-    version='0.2',
+    version='0.2.2',
     packages=['joby'],
     url='',
     license='MIT',

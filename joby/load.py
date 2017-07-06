@@ -1,4 +1,5 @@
 import requests
+from cassandra.cqlengine import ValidationError
 from cassandra.cqlengine.query import BatchQuery
 
 from joby import models
@@ -30,7 +31,7 @@ def save_page(page, page_num):
     log.info("saving page {}".format(page_num))
     with BatchQuery() as b:
         for job_item in page['resultItemList']:
-            if job_item['location'].strip() != "":
+            try:
                 job = Job.create(date=job_item['date'],
                                  location_text=job_item['location'],
                                  title=job_item['jobTitle'],
@@ -38,6 +39,8 @@ def save_page(page, page_num):
                                  url=job_item['detailUrl'],
                                  source='dice')
                 job.batch(b).save()
+            except ValidationError as e:
+                log.warn("Problem loading {}: {}".format(job_item, e))
 
 
 if __name__ == '__main__':
