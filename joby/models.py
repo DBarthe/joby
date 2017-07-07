@@ -1,6 +1,6 @@
 from cassandra.cqlengine import columns
 from cassandra.cqlengine import connection
-from cassandra.cqlengine.management import sync_table, create_keyspace_network_topology
+from cassandra.cqlengine.management import sync_table, create_keyspace_network_topology, create_keyspace_simple
 from cassandra.cqlengine.models import Model
 
 from joby import settings
@@ -25,7 +25,11 @@ def setup():
     connection.setup(settings.CASSANDRA_ENDPOINT, settings.MAIN_KEYSPACE)
 
     log.info("Create keyspace")
-    create_keyspace_network_topology(settings.MAIN_KEYSPACE, {"1": settings.REPLICATION_FACTOR})
+    {
+        "simple": lambda: create_keyspace_simple(settings.MAIN_KEYSPACE, settings.REPLICATION_FACTOR),
+        "network": lambda: create_keyspace_network_topology(settings.MAIN_KEYSPACE,
+                                                            {settings.DC: settings.REPLICATION_FACTOR})
+    }[settings.TOPOLOGY]()
 
     log.info("Sync table")
     sync_table(Job)
